@@ -12,6 +12,7 @@ const route = express.Router();
 //const controller = require('../controllers/controller')
 const Productcontroller = require('../controllers/productController')
 const Usercontroller = require('../controllers/userController');
+const Cartcontroller = require('../controllers/cartController');
 const { verifyToken} = require('../middleware/authVerify')
 
 route.get('/getProducts', Productcontroller.get);
@@ -23,6 +24,10 @@ route.post('/deleteProduct',verifyToken, Productcontroller.delete);
 route.post('/addNewUser', Usercontroller.create);
 
 route.post('/login', Usercontroller.login);
+
+route.post('/addToCart',verifyToken, Cartcontroller.create);
+route.get('/getcartproducts',verifyToken, Cartcontroller.get);
+route.post('/deletecartproducts',verifyToken, Cartcontroller.delete);
 
 route.get('/tokenverify', verifyToken, Usercontroller.verify);
 

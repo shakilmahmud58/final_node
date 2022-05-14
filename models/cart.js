@@ -1,6 +1,16 @@
 const mongoose = require('mongoose');
 
-const ProductsSchema = mongoose.Schema({
+const CartSchema = mongoose.Schema({
+    email:{
+        type: String,
+        required: true,
+        trim: true,
+        lowercase: true
+    },
+    productId:{
+        type: String,
+        required: true,
+    },
    name:{
        type: String,
        required: true,
@@ -16,6 +26,10 @@ const ProductsSchema = mongoose.Schema({
        type:String,
        required: true
    },
+   number:{
+    type:Number,
+    required:true
+   },
    price:{
        type:Number,
        required:true
@@ -27,21 +41,9 @@ const ProductsSchema = mongoose.Schema({
    url:{
        type:String,
        required:false
-   },
-   isBestAchived:{
-    type:Boolean,
-    required:true
-   },
-   date:{
-       type:String,
-       required: true
-   },
-   origin:{
-    type:String,
-    required:false
-}
+   }
 })
 
-const Products = mongoose.model("Products", ProductsSchema);
+const Cart = mongoose.model("Cart", CartSchema);
 
-module.exports= Products;
+module.exports= Cart;

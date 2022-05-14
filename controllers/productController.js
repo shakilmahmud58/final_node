@@ -4,13 +4,16 @@ const Productsdb = require('../models/Products');
 exports.create = async(req,res)=>{
     console.log(req.decoded);
     const role =req.decoded.role;
+    const isbestachived = {isBestAchived:false}
+    const data = {...req.body,...isbestachived}
     if(role=='admin')
     {
-        const Product = new Productsdb(req.body);
+        
         await Productsdb.exists({name:req.body.name, code:req.body.code}).then(async(result)=>{
     
             if(result==null)
                 {
+                    const Product = new Productsdb(data);
                     await Product.save().then((result)=>{
                         res.send(result);
                     }).catch(err=>{
