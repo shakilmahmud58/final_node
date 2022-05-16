@@ -15,20 +15,23 @@ const Usercontroller = require('../controllers/userController');
 const Cartcontroller = require('../controllers/cartController');
 const { verifyToken} = require('../middleware/authVerify')
 
-route.get('/getProducts', Productcontroller.get);
-
-route.post('/addProduct',verifyToken, Productcontroller.create);
-
-route.post('/deleteProduct',verifyToken, Productcontroller.delete);
-
+//user
 route.post('/addNewUser', Usercontroller.create);
-
 route.post('/login', Usercontroller.login);
 
+//product
+route.get('/getProducts', Productcontroller.get);
+route.post('/addProduct',verifyToken, Productcontroller.create);
+route.post('/editProduct',verifyToken, Productcontroller.edit);
+route.post('/deleteProduct',verifyToken, Productcontroller.delete);
+route.post('/sortProducts', Productcontroller.sort);
+
+//cart
 route.post('/addToCart',verifyToken, Cartcontroller.create);
 route.get('/getcartproducts',verifyToken, Cartcontroller.get);
 route.post('/deletecartproducts',verifyToken, Cartcontroller.delete);
 
+//verify
 route.get('/tokenverify', verifyToken, Usercontroller.verify);
 
 module.exports=route;

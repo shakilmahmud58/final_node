@@ -34,7 +34,7 @@ exports.create = async(req,res)=>{
 
 
 exports.get= async(req,res)=>{
-    await Productsdb.find({}).then((result)=>{
+    await Productsdb.find({}).sort({price:'asc'}).then((result)=>{
        res.send(result);
     }).catch(err=>{
         res.send(err);
@@ -48,4 +48,25 @@ exports.delete= async(req,res)=>{
     }).catch(err=>{
         res.send(err);
     })
+}
+
+exports.edit= async(req,res)=>{
+    const id = req.body.id;
+    await Productsdb.findByIdAndUpdate(id,req.body.data).then(result=>{
+        res.send(result);
+    }).catch(err=>{
+        res.send(err);
+    })
+}
+
+exports.sort= async(req,res)=>{
+    const sortBy = req.body.sort;
+    const orderBy = req.body.order;
+    const query ={};
+    query[sortBy]=orderBy;
+    await Productsdb.find({}).sort(query).then((result)=>{
+        res.send(result);
+     }).catch(err=>{
+         res.send(err);
+     })
 }
