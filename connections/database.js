@@ -3,7 +3,7 @@ require('dotenv').config();
 const user = process.env.MONGO_USER;
 const password = process.env.MONGO_PASS;
 
-const url = `mongodb+srv://${user}:${password}@cluster0.shiwe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+const url = process.env.DATABASE_URL;
 //const client = new MongoClient(url);
 
 const connectDB=async()=>{
