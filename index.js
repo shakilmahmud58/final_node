@@ -9,7 +9,8 @@ app.use(cors());
 const httpServer = createServer(app);
 const io = new Server(httpServer,{
     cors:{
-        origin:"https://angular-58.azurewebsites.net"
+        origin:["https://angular-58.azurewebsites.net","http://localhost:4200"],
+        
     }
 })
 
@@ -28,6 +29,10 @@ connectDB();
 
 app.use(router);
 
+// io.configure(function(){
+//     io.set('transports', ['websocket']);
+//     io.set('match origin protocol', true);
+// })
 io.on("connection",(socket)=>{
    console.log("socket");
    socket.on('edit',(message)=>{
