@@ -9,7 +9,7 @@ app.use(cors());
 const httpServer = createServer(app);
 const io = new Server(httpServer,{
     cors:{
-        origin:"http://localhost:4200"
+        origin:"https://angular-58.azurewebsites.net"
     }
 })
 
