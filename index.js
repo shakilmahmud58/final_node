@@ -2,22 +2,21 @@ const express = require("express");
 const cors = require('cors');
 
 const {createServer} = require('http');
-
-
-const {Server} = require('socket.io')
 // const jwt = require('jsonwebtoken');
 const bodyParser= require('body-parser');
 const app = express();
 app.use(cors());
 const httpServer = createServer(app);
+const {Server} = require('socket.io')
 const io = new Server(httpServer,{
     cors:{
         origin:"*",
-        
+        methods: ["GET", "POST"]
+
     }
 })
 
- 
+ app.get('/get',(req,res)=>{ res.send('ok')})
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
@@ -35,7 +34,8 @@ app.use(router);
 io.on("connection",(socket)=>{
    console.log("socket");
    socket.on('edit',(message)=>{
-       //console.log(message);
+       console.log(message);
+       console.log('from socket edit event');
        io.emit('editback',message);
    })
 })
