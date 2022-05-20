@@ -2,17 +2,17 @@ const express = require("express");
 const cors = require('cors');
 
 const {createServer} = require('http');
-const httpServer = createServer(app);
+
 
 const {Server} = require('socket.io')
 // const jwt = require('jsonwebtoken');
 const bodyParser= require('body-parser');
 const app = express();
 app.use(cors());
-
+const httpServer = createServer(app);
 const io = new Server(httpServer,{
     cors:{
-        origin:"https://angular-58.azurewebsites.net",
+        origin:"*",
         
     }
 })
