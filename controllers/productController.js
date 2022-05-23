@@ -1,5 +1,6 @@
 const { ObjectId } = require('mongodb');
 const Productsdb = require('../models/Products');
+const Cartdb = require('../models/cart');
 
 exports.create = async(req,res)=>{
     console.log(req.decoded);
@@ -50,8 +51,12 @@ exports.delete= async(req,res)=>{
     })
 }
 
+
 exports.edit= async(req,res)=>{
     const id = req.body.id;
+    await Cartdb.updateMany({productId:id},req.body.data).catch(err1=>{
+        res.send(err1);
+    });
     await Productsdb.findByIdAndUpdate(id,req.body.data).then(result=>{
         res.send(result);
     }).catch(err=>{
